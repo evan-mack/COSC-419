@@ -1,10 +1,6 @@
-package Notes;
-
 class MiniMax {
     public static void main(String[] args) {
         int[][] board = { { 1, 0, -1 }, { 0, 0, 0 }, { -1, 0, 1 } };
-        int[] board2 = new int[9];
-
         /*
          * 
             0 1 2 
@@ -24,6 +20,7 @@ class MiniMax {
          */
         printBoard(board);
         bestMove(board);
+        printBoard(board);
     }
 
     public static int checkWinner2(int[] b2) {
@@ -69,6 +66,7 @@ class MiniMax {
                     }
                 }
             }
+            return bestScore;
         }else{
             int bestScore = 10;
             for (int row = 0; row < board.length; row++) {
@@ -82,8 +80,8 @@ class MiniMax {
                 }
                         
             }
+            return bestScore;
         }
-        return score;
     }
 
     public static int bestMove(int[][] board) {
@@ -97,6 +95,7 @@ class MiniMax {
                     board[row][col] = 1;
                     int score = minimax(board, 5, false);
                     System.out.println("ROW: " + row + ", COL: " + col + " SCORE: " + score);
+                    board[row][col] = 0;
                     if(score > bestScore){
                         bestScore = score;
                         bestRow = row;
