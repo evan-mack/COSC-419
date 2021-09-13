@@ -57,9 +57,12 @@ class Player {
                 // System.err.println("Not going to play this board");
 
                 if (!nextWinner(board[b].b, validMoves, firstMove, bigBoard)) {
-                    Pair move = bestMove(validMoves, firstMove, board, b);
-                    board[b].b[move.localRow][move.localCol] = 1;
-                    System.out.println(move.row + " " + move.col);
+                    if (!nextWinner(board[b].b, validMoves, !firstMove, bigBoard)) {
+                        Pair move = bestMove(validMoves, firstMove, board, b);
+                        board[b].b[move.localRow][move.localCol] = 1;
+                        System.out.println(move.row + " " + move.col);
+                    }
+
                     // printBoard(board[b].b);
                 }
 
@@ -134,11 +137,11 @@ class Player {
 
     public static int minimax(int[][] board, int depth, boolean isMaxPlayer) {
         int score = checkWinner(board);
-
+        int[][] multi = { { 2, 1, 2 }, { 1, 3, 1 }, { 2, 1, 2 } };
         if (score != 0) {
-            return score * (1000 / (depth + 1));
+            return score;
         }
-        if (depth == 9) {
+        if (depth == 5) {
             return score;
         }
         if (isMaxPlayer) {
